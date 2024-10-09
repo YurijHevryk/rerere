@@ -1,22 +1,48 @@
 ```mermaid
 classDiagram
-  class User {
-    + name: String
-    + has_access: Boolean
-  }
-  class ExpensiveResource {
-    + __init__()
-    + process()
-  }
-  class ResourceProxy {
-    + resource: ExpensiveResource
-    + user: User
-    + __init__(resource: ExpensiveResource, user: User)
-    + process()
-  }
-  User <-> ResourceProxy
-  ResourceProxy --> ExpensiveResource
-  note right of User: Represents a user of the system.
-  note right of ExpensiveResource: Represents a resource that might be expensive to create or access.
-  note right of ResourceProxy: Acts as a gatekeeper for the ExpensiveResource.
+    class Computer {
+        -cpu: str
+        -gpu: str
+        -ram: int
+        +__str__(): str
+    }
+
+    class ComputerBuilder {
+        <<interface>>
+        +reset()
+        +set_cpu()
+        +set_gpu()
+        +set_ram()
+    }
+
+    class GamingComputerBuilder {
+        -computer: Computer
+        +reset()
+        +set_cpu()
+        +set_gpu()
+        +set_ram()
+        +get_result(): Computer
+    }
+
+    class OfficeComputerBuilder {
+        -computer: Computer
+        +reset()
+        +set_cpu()
+        +set_gpu()
+        +set_ram()
+        +get_result(): Computer
+    }
+
+    class Director {
+        -builder: ComputerBuilder
+        +__init__(builder: ComputerBuilder)
+        +build_gaming_computer(): Computer
+        +build_office_computer(): Computer
+    }
+
+    Director --> ComputerBuilder : uses
+    ComputerBuilder <|-- GamingComputerBuilder
+    ComputerBuilder <|-- OfficeComputerBuilder
+    GamingComputerBuilder --> Computer : Creates
+    OfficeComputerBuilder --> Computer : Creates
 ```
