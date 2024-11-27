@@ -1,0 +1,13 @@
+```mermaid
+
+class ProductManager {
+    - data_file: str
+    + __init__(data_file: str)
+    + load_data(): dict
+    + save_data(data: dict): void
+    + add_product(product: dict): void
+    + delete_product(product_idx: int): dict
+    + edit_product(product_idx: int, new_data: dict): void
+}
+
+```
